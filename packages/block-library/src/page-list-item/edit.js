@@ -6,7 +6,6 @@ import classnames from 'classnames';
 /**
  * WordPress dependencies
  */
-import { __ } from '@wordpress/i18n';
 import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
@@ -41,9 +40,6 @@ export default function PageListItemEdit( { context, attributes } ) {
 	const isNavigationChild = 'showSubmenuIcon' in context;
 	const frontPageId = useFrontPageId();
 
-	const pageLabel =
-		label !== '' ? decodeEntities( label ) : __( '(No title)' );
-
 	const innerBlocksColors = getColors( context, true );
 
 	const navigationChildBlockProps =
@@ -72,7 +68,7 @@ export default function PageListItemEdit( { context, attributes } ) {
 						className="wp-block-navigation-item__content wp-block-navigation-submenu__toggle"
 						aria-expanded="false"
 					>
-						{ pageLabel }
+						{ decodeEntities( label ) }
 					</button>
 					<span className="wp-block-page-list__submenu-icon wp-block-navigation__submenu-icon">
 						<ItemSubmenuIcon />
@@ -85,7 +81,7 @@ export default function PageListItemEdit( { context, attributes } ) {
 					} ) }
 					href={ link }
 				>
-					{ pageLabel }
+					{ decodeEntities( label ) }
 				</a>
 			) }
 			{ hasChildren && (
